@@ -1,0 +1,46 @@
+﻿@page
+@model Chat.ConversationsModel
+@{
+    ViewData["Title"] = "Conversations";
+}
+
+@if (Model.UserID != "")
+{
+    <form asp-page="./Conversations" method="get" class="form-inline">
+        <label class="sr-only" for="Search">Filtr</label>
+        <select class="form-control mb-2 mr-sm-2" asp-for="UserFilter" asp-items="Model.UserList">
+        </select>
+        <input type="submit" value="Search" class="btn btn-primary mb-2 mr-1" />
+    </form>
+    @if (Model.Messages != null)
+    {
+        <div>
+            @foreach (var i in Model.Messages)
+            {
+                @if (i.Sender.Id == Model.UserID)
+                {
+                    <p class="rounded-circle message-sent">
+                        @i.Body
+                    </p>
+                }
+                else
+                {
+                    <p class="rounded-circle message-received">
+                        @i.Body
+                    </p>
+                }
+            }
+        </div>
+        <form asp-page="./Conversations" method="post" class="form-inline">
+            <textarea asp-for="Message">Message</textarea>
+            <input type="submit" value="Send" class="btn btn-primary mb-2 mr-1" />
+        </form>
+    }
+}
+else
+{
+    <p>To display your conversations, you must be logged in.</p>
+}
+
+
+
