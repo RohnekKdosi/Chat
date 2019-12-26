@@ -72,7 +72,7 @@ namespace Chat
             if (user != null && Message != "")
             {
                 UserID = user.Id;
-                _dp.SendMessage(UserFilter, user, Message);
+                _dp.SendMessage(_dp.GetConversation(UserFilter, user.Id), user, Message);
             }
             Message = "";
             return Page();

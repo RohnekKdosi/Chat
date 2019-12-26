@@ -15,30 +15,15 @@ namespace Chat.Data
         [Key]
         [Required]
         public Guid Id { get; set; }
-        public Conversation(IdentityUser user0, IdentityUser user1)
-        {
-            User0 = user0;
-            User1 = user1;
-            Messages = new List<Message>();
-        }
-        public Conversation(ApplicationDbContext dbContext)
-        {
-            User0 = dbContext.Users.Find("Dummy0");
-            User1 = dbContext.Users.Find("Dummy1");
-        }
-        [Required]
-        public string User0Id { get; private set; }
-        
-        public IdentityUser User0 { get; private set; }
-        [Required]
-        public string User1Id { get; private set; }
-        
-        public IdentityUser User1 { get; private set; }
-        public List<Message> Messages { get; private set; }
 
-        public void SendMessage (IdentityUser user, string message)
-        {
-            Messages.Add(new Message(this, user, message));
-        }
+        [Required]
+        public string User0Id { get; set; }
+        [ForeignKey("User0Id")]
+        public IdentityUser User0 { get; set; }
+        [Required]
+        public string User1Id { get; set; }
+        [ForeignKey("User1Id")]
+        public IdentityUser User1 { get; set; }
+        public List<Message> Messages { get; set; }
     }
 }

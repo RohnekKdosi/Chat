@@ -23,6 +23,8 @@ namespace Chat.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Conversation>().HasOne(typeof(IdentityUser), "User0").WithMany().HasForeignKey("User0Id").OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Conversation>().HasOne(typeof(IdentityUser), "User1").WithMany().HasForeignKey("User1Id").OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
