@@ -4,16 +4,14 @@ using Chat.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Chat.Data.Migrations
+namespace Chat.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191222190107_JustWorkAlreadyYouPieceOfFuckingShit")]
-    partial class JustWorkAlreadyYouPieceOfFuckingShit
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,13 +272,13 @@ namespace Chat.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User0")
                         .WithMany()
                         .HasForeignKey("User0Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User1")
                         .WithMany()
                         .HasForeignKey("User1Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

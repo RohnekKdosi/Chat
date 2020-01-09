@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Chat.Data.Migrations
+namespace Chat.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191222185349_JustPleaseWorkAlready")]
-    partial class JustPleaseWorkAlready
+    [Migration("20200109163955_WorkYouPieceOfShit")]
+    partial class WorkYouPieceOfShit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -274,13 +274,13 @@ namespace Chat.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User0")
                         .WithMany()
                         .HasForeignKey("User0Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User1")
                         .WithMany()
                         .HasForeignKey("User1Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
