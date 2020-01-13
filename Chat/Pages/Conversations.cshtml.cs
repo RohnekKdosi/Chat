@@ -26,6 +26,7 @@ namespace Chat
         }
         [BindProperty(SupportsGet = true)]
         public string UserFilter { get; set; }
+        public string ConvoFilter { get; set; }
         public List<SelectListItem> UserList
         {
             get
@@ -44,12 +45,13 @@ namespace Chat
 
         public async Task<IActionResult> OnGet()
         {
+            ConvoFilter = UserFilter;
             UserID = "";
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
                 UserID = user.Id;
-                if (UserFilter == "")
+                if (UserFilter == null)
                 {
                     Messages = null;
                     return Page();
@@ -72,7 +74,7 @@ namespace Chat
             if (user != null && Message != "")
             {
                 UserID = user.Id;
-                _dp.SendMessage(_dp.GetConversation(UserFilter, user.Id), user, Message);
+                _dp.SendMessage(_dp.GetConversation(ConvoFilter, user.Id), user, Message);
             }
             Message = "";
             return Page();

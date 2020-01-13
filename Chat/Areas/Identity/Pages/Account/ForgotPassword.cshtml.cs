@@ -16,6 +16,8 @@ namespace Chat.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ForgotPasswordModel : PageModel
     {
+        [TempData]
+        public string Link { get; set; }
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
 
@@ -55,7 +57,7 @@ namespace Chat.Areas.Identity.Pages.Account
                     pageHandler: null,
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
-
+                Link = HtmlEncoder.Default.Encode(callbackUrl);
                 await _emailSender.SendEmailAsync(
                     Input.Email,
                     "Reset Password",

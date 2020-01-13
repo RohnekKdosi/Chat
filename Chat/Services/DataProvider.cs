@@ -25,8 +25,12 @@ namespace Chat.Services
         {
             if (_db.Conversations.ToList().Find(c => (c.User0Id == userId && c.User1Id == currentUserId) || (c.User1Id == userId && c.User0Id == currentUserId)) == null)
             {
-                _db.Conversations.Add(new Conversation { User0Id = currentUserId, User1Id = userId });
-                _db.SaveChanges();
+                if (userId != "")
+                {
+                    _db.Conversations.Add(new Conversation { User0Id = currentUserId, User1Id = userId });
+                    _db.SaveChanges();
+                }
+
             }
             return _db.Conversations.ToList().Find(c => (c.User0Id == userId && c.User1Id == currentUserId) || (c.User1Id == userId && c.User0Id == currentUserId));
         }

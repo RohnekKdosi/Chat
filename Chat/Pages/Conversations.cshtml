@@ -31,11 +31,12 @@
                 }
             }
         </div>
-        <form asp-page="./Conversations" method="post" class="form-inline">
-            <textarea asp-for="Message">Message</textarea>
-            <input type="submit" value="Send" class="btn btn-primary mb-2 mr-1" />
-        </form>
+
     }
+    <form asp-page="./Conversations" method="post" class="form-inline">
+        <textarea asp-for="Message">Message</textarea>
+        <input type="submit" value="Send" class="btn btn-primary mb-2 mr-1" />
+    </form>
 }
 else
 {

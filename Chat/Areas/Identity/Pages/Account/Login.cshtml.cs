@@ -43,7 +43,8 @@ namespace Chat.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
+            //[EmailAddress]
+            [Display(Name ="Username")]
             public string Email { get; set; }
 
             [Required]
