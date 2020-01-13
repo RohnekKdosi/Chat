@@ -24,6 +24,6 @@ namespace Chat.Data
         public string User1Id { get; set; }
         [ForeignKey("User1Id")]
         public IdentityUser User1 { get; set; }
-        public List<Message> Messages { get; set; }
+        public ICollection<Message> Messages { get; set; }
     }
 }

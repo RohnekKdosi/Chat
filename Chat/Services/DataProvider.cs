@@ -10,6 +10,7 @@ namespace Chat.Services
 {
     public class DataProvider
     {
+        public string Filter { get; set; }
         private ApplicationDbContext _db;
         //private ConvoDbContext _db;
         public DataProvider(ApplicationDbContext dbContext)
@@ -25,7 +26,7 @@ namespace Chat.Services
         {
             if (_db.Conversations.ToList().Find(c => (c.User0Id == userId && c.User1Id == currentUserId) || (c.User1Id == userId && c.User0Id == currentUserId)) == null)
             {
-                if (userId != "")
+                if (userId != null)
                 {
                     _db.Conversations.Add(new Conversation { User0Id = currentUserId, User1Id = userId });
                     _db.SaveChanges();
@@ -41,9 +42,10 @@ namespace Chat.Services
 
         public void SendMessage(Conversation conversation, IdentityUser sender, string message)
         {
-            if (conversation.User0 == sender || conversation.User1 == sender)
+            if (conversation != null)
             {
                 _db.Messages.Add(new Message { Conversation = conversation, Sender = sender, Body = message });
+                _db.SaveChanges();
             }
         }
 

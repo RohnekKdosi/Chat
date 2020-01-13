@@ -26,7 +26,6 @@ namespace Chat
         }
         [BindProperty(SupportsGet = true)]
         public string UserFilter { get; set; }
-        public string ConvoFilter { get; set; }
         public List<SelectListItem> UserList
         {
             get
@@ -43,29 +42,38 @@ namespace Chat
         public string Message { get; set; }
         public IEnumerable<Message> Messages { get; set; }
 
+        public IActionResult OnPostFilter()
+        {
+            _dp.Filter = UserFilter;
+            return RedirectToPage("./Conversations");
+        }
         public async Task<IActionResult> OnGet()
         {
-            ConvoFilter = UserFilter;
+            //Don't ask me why I didn't make this a separate function. Ask the fucking C# why it doesn't recognise the fucking page handlers
+            if (UserFilter != null)
+            {
+                _dp.Filter = UserFilter;
+            }
             UserID = "";
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
                 UserID = user.Id;
-                if (UserFilter == null)
+                if (_dp.Filter == null)
                 {
                     Messages = null;
-                    return Page();
+                    return null;
                 }
                 else
                 {
                     if (user.Id != "")
                     {
-                        Messages = _dp.GetConversation(UserFilter, user.Id).Messages;
+                        Messages = _dp.GetConversation(_dp.Filter, user.Id).Messages;
                     }
-                    return RedirectToPage("./Conversations");
+                    return null;
                 }
             }
-            return Page();
+            return null;
         }
         public async Task<IActionResult> OnPost()
         {
@@ -74,7 +82,7 @@ namespace Chat
             if (user != null && Message != "")
             {
                 UserID = user.Id;
-                _dp.SendMessage(_dp.GetConversation(ConvoFilter, user.Id), user, Message);
+                _dp.SendMessage(_dp.GetConversation(UserFilter, user.Id), user, Message);
             }
             Message = "";
             return Page();
